@@ -3,6 +3,8 @@ package com.project.danreading.common.utils;
 import android.content.Context;
 import android.widget.Toast;
 
+import javax.inject.Inject;
+
 
 /**
  *
@@ -10,7 +12,10 @@ import android.widget.Toast;
 public class ToastUtil {
 
     private Context mContext;
+    @Inject
+    public ToastUtil(){
 
+    }
     public ToastUtil(Context context) {
         mContext = context;
     }
@@ -33,11 +38,11 @@ public class ToastUtil {
 
     public void show(Context context, CharSequence text, int duration) {
         Toast mToast = null;
-        if(mContext == null){
+//        if(mContext == null){
             mToast = Toast.makeText(context, text, duration);
-        }else{
-            mToast.setText(text);
-        }
+//        }else{
+//            mToast.setText(text);
+//        }
         mToast.show();
     }
 
