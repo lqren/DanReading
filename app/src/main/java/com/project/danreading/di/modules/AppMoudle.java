@@ -4,8 +4,6 @@ import android.content.Context;
 
 import com.project.danreading.common.utils.ToastUtil;
 
-import javax.inject.Singleton;
-
 import dagger.Module;
 import dagger.Provides;
 
@@ -18,13 +16,13 @@ public class AppMoudle {
     }
 
     @Provides
-    @Singleton
+//    @Singleton
     public Context provideContext() {
         return mContext;
     }
 
     @Provides
-    @Singleton
+//    @Singleton
     public ToastUtil provideToastUtil() {
         return new ToastUtil(mContext);
     }

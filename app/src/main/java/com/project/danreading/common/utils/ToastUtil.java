@@ -12,10 +12,8 @@ import javax.inject.Inject;
 public class ToastUtil {
 
     private Context mContext;
+    Toast mToast = null;
     @Inject
-    public ToastUtil(){
-
-    }
     public ToastUtil(Context context) {
         mContext = context;
     }
@@ -37,12 +35,12 @@ public class ToastUtil {
     }
 
     public void show(Context context, CharSequence text, int duration) {
-        Toast mToast = null;
-//        if(mContext == null){
+
+        if(mToast == null){
             mToast = Toast.makeText(context, text, duration);
-//        }else{
-//            mToast.setText(text);
-//        }
+        }else{
+            mToast.setText(text);
+        }
         mToast.show();
     }
 
