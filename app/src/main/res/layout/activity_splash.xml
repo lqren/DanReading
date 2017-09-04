@@ -3,17 +3,9 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
-    <Button
-        android:id="@+id/btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="点击注册Toast"/>
-    <Button
-        android:id="@+id/btn1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="点击注册Toast"/>
+
     <ImageView
+        android:id="@+id/splash_iv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
