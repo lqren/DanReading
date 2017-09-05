@@ -4,17 +4,16 @@ package com.project.danreading.common.utils;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.logging.Logger;
 
 import okhttp3.Request;
 
 public class OkHttpImageDownLoaderUtil {
     public static void down(String url){
         final Request request = new Request.Builder().url(url).build();
-        HttpUtils.client.newCall(request).enqueue(new okhttp3.Callback() {
+        HttpUtil.client.newCall(request).enqueue(new okhttp3.Callback() {
             @Override
             public void onFailure(okhttp3.Call call, IOException e) {
-                Logger.d(e);
+               LogUtil.e(e.toString());
             }
 
             @Override
@@ -27,7 +26,7 @@ public class OkHttpImageDownLoaderUtil {
                 if(FileUtil.isFileExist(pictureName)){
                     return;
                 }
-                Logger.i("pictureName="+pictureName);
+               LogUtil.i("pictureName="+pictureName);
                 FileOutputStream fos = new FileOutputStream(FileUtil.createFile(pictureName));
                 InputStream in = response.body().byteStream();
                 byte[] buf = new byte[1024];

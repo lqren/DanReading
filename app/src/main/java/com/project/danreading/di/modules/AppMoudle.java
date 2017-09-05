@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.project.danreading.common.utils.AppUtil;
 import com.project.danreading.common.utils.FileUtil;
-import com.project.danreading.common.utils.NetworkUtil;
 import com.project.danreading.common.utils.PrefrenceUtil;
 import com.project.danreading.common.utils.ToastUtil;
 
@@ -48,12 +47,5 @@ public class AppMoudle {
     public PrefrenceUtil providePrefrenceUtil() {
         return new PrefrenceUtil(mContext);
     }
-
-    @Provides
-//    @Singleton
-    public NetworkUtil provideNetworkUtil() {
-        return new NetworkUtil(mContext);
-    }
-
 
 }

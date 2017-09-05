@@ -53,6 +53,8 @@ public class SplashPresenter implements SplashContract.Presenter {
                                 OkHttpImageDownLoaderUtil.down(image);
                             }
 
+                        }else{
+                            LogUtil.d("非WiFi环境，不下载图片");
                         }
                     }
 

@@ -9,7 +9,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.widget.ImageView;
 
 import com.project.danreading.R;
 import com.project.danreading.common.base.BaseActivity;
@@ -17,10 +16,12 @@ import com.project.danreading.common.utils.AppUtil;
 import com.project.danreading.common.utils.FileUtil;
 import com.project.danreading.common.utils.PrefrenceUtil;
 import com.project.danreading.common.utils.ToastUtil;
+import com.project.danreading.common.view.FixedImageView;
 import com.project.danreading.di.components.DaggerSplashComponent;
 import com.project.danreading.di.modules.SplashModule;
 import com.project.danreading.index.presenter.SplashContract;
 import com.project.danreading.index.presenter.SplashPresenter;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -47,32 +48,36 @@ public class SplashActivity extends BaseActivity implements SplashContract.View 
     PrefrenceUtil   mPrefrenceUtil;
     private static final String SPLASH_IMG_INDEX = "splash_img_index";
     @BindView(R.id.splash_iv)
-    ImageView mSplashIv;
+    FixedImageView mSplashIv;
+    private RxPermissions mRxPermissions;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         DaggerSplashComponent.builder().netComponent(getNetComponents()).appComponent(getAppComponents()).splashModule(new SplashModule(this)).build().inject(this);
+        mRxPermissions = new RxPermissions(this);
         requestPermission();
     }
+
+
 
     /**
      * 请求权限
      */
     private void requestPermission() {
-        mRxPermissions.requestEach(Manifest.permission.WRITE_EXTERNAL_STORAGE,
+        mRxPermissions.request(Manifest.permission.WRITE_EXTERNAL_STORAGE,
                 Manifest.permission.READ_EXTERNAL_STORAGE,
                 Manifest.permission.READ_PHONE_STATE)
-                .subscribe(permission -> {
-                    if (permission.granted) {
+                .subscribe(granted -> {
+                    if (granted) {
                         setContentView(R.layout.activity_splash);
                         ButterKnife.bind(this);
                         delaySplash();
                         String deviceId = mAppUtil.getDeviceId();
                         getSplash(deviceId);
                     } else {
-                        String str = null;
-                        switch (permission.name) {
+                        String str = "权限被拒绝";
+                      /*  switch (permission.name) {
                             case Manifest.permission.WRITE_EXTERNAL_STORAGE:
                             case Manifest.permission.READ_EXTERNAL_STORAGE:
                                 str = "文件读写权限被拒绝!";
@@ -81,8 +86,8 @@ public class SplashActivity extends BaseActivity implements SplashContract.View 
                                 str = "获取手机状态权限被拒绝!";
                                 break;
                             default:
-                                break;
-                        }
+                                break;*/
+//                        }
                         mToastUtil.show(str);
                     }
                 });
@@ -96,12 +101,12 @@ public class SplashActivity extends BaseActivity implements SplashContract.View 
         List<String> allAD = mFileUtil.getAllAD();
         if (allAD.size() > 0) {
             Random random   = new Random();
-            int    imgIndex = random.nextInt(allAD.size());
-            int    ADIndex  = mPrefrenceUtil.getInt(SPLASH_IMG_INDEX, 0);
+            int    ADIndex = random.nextInt(allAD.size());
+            int    imgIndex  = mPrefrenceUtil.getInt(SPLASH_IMG_INDEX, 0);
             if (imgIndex == ADIndex) {
                 if (ADIndex >= allAD.size()) {
                     ADIndex--;
-                } else if (imgIndex == 0) {
+                } else if (ADIndex == 0) {
                     if (ADIndex + 1 < allAD.size()) {
                         ADIndex++;
                     }
