@@ -1,27 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+
+<android.support.v4.widget.DrawerLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     >
 
-    <android.support.v4.widget.DrawerLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <ImageView
+        android:layout_height="match_parent"
+       >
+
+        <com.project.danreading.common.view.VerticalViewPager
+            android:id="@+id/vvp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/welcome_default2"
-            android:scaleType="fitXY"/>
+            />
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"/>
+            android:layout_height="?actionBarSize"
+            android:background="@drawable/shadow"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+                <TextView
+                    android:id="@+id/title_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="单读"
+                    android:textSize="20sp"/>
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:scaleType="center"
+                    android:layout_gravity="right"
+                    android:src="@drawable/person"/>
+
+        </android.support.v7.widget.Toolbar>
+    </RelativeLayout>
 
     <android.support.design.widget.NavigationView
+        android:id="@+id/navigation_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_gravity="left"/>
-    </android.support.v4.widget.DrawerLayout>
+        android:layout_gravity="left"
+        android:background="@color/theme_bg_color_black"
+        app:headerLayout="@layout/head"
+        app:menu="@menu/menu"
+        />
+</android.support.v4.widget.DrawerLayout>
 
-</RelativeLayout>
