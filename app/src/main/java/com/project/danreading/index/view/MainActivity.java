@@ -20,6 +20,7 @@ import com.project.danreading.common.utils.LogUtil;
 import com.project.danreading.common.view.VerticalViewPager;
 import com.project.danreading.common.view.adapter.VerticalPagerAdapter;
 import com.project.danreading.di.components.DaggerMainComponent;
+import com.project.danreading.di.modules.MainModule;
 import com.project.danreading.index.presenter.MainContract;
 import com.project.danreading.index.presenter.MainPresenter;
 
@@ -33,20 +34,20 @@ import butterknife.ButterKnife;
 public class MainActivity extends BaseActivity implements MainContract.View {
 
     @BindView(R.id.toolbar)
-    Toolbar           mToolbar;
+    Toolbar mToolbar;
     @BindView(R.id.drawer_layout)
-    DrawerLayout      mDrawerLayout;
+    DrawerLayout mDrawerLayout;
     @BindView(R.id.navigation_view)
-    NavigationView    mNavigationView;
+    NavigationView mNavigationView;
     @BindView(R.id.vvp)
     VerticalViewPager mVvp;
     @BindView(R.id.title_tv)
-    TextView          mTitleTv;
+    TextView mTitleTv;
     private ActionBarDrawerToggle mDrawerToggle;
+
+    public VerticalPagerAdapter mPagerAdapter;
     @Inject
-    public  VerticalPagerAdapter  mPagerAdapter;
-    @Inject
-    public  MainPresenter         mMainPresenter;
+    public MainPresenter mMainPresenter;
     @Inject
     public AppUtil mAppUtil;
 
@@ -61,7 +62,7 @@ public class MainActivity extends BaseActivity implements MainContract.View {
     }
 
     private void loadData(int page, int mode, String pageId, String createTime) {
-        mMainPresenter.getListByPage(page, mode, pageId, mAppUtil.getDeviceId(),createTime);
+        mMainPresenter.getListByPage(page, mode, pageId, mAppUtil.getDeviceId(), createTime);
     }
 
     /**
@@ -86,13 +87,13 @@ public class MainActivity extends BaseActivity implements MainContract.View {
         };
         mDrawerToggle.syncState();
         mDrawerLayout.setDrawerListener(mDrawerToggle);
-        Resources      resource = (Resources) getBaseContext().getResources();
-        ColorStateList csl      = (ColorStateList) resource.getColorStateList(R.color.navigation_menu_item_color);
+        Resources resource = (Resources) getBaseContext().getResources();
+        ColorStateList csl = (ColorStateList) resource.getColorStateList(R.color.navigation_menu_item_color);
         mNavigationView.setItemTextColor(csl);
     }
 
     private void initPage() {
-        DaggerMainComponent.builder().appComponent(getAppComponents()).netComponent(getNetComponents()).build().inject(this);
+        DaggerMainComponent.builder().appComponent(getAppComponents()).netComponent(getNetComponents()).mainModule(new MainModule(this)).build().inject(this);
     }
 
 

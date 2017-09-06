@@ -2,6 +2,7 @@ package com.project.danreading.common.model;
 
 
 import com.project.danreading.common.model.entity.Item;
+import com.project.danreading.common.model.entity.Result;
 import com.project.danreading.common.model.entity.SplashEntity;
 
 import java.util.List;
@@ -36,7 +37,6 @@ public interface ApiService {
      * @param show_sdv
      * @return
      */
-    @GET("")
-    Observable<List<Item>> getList(@Query("c") String client,@Query("version") String version,@Query("a") String a,@Query("p") int p,@Query("model") int model,@Query("page_id") String pageId,@Query("create_time")String createTime,@Query("time") long time,@Query("device_id") String deviceId,@Query("show_sdv") int showSdv);
-
+    @GET("/")
+    Observable<Result.Data<List<Item>>> getList(@Query("client") String client,@Query("c") String c,@Query("version") String version,@Query("a") String a,@Query("p") int p,@Query("model") int model,@Query("page_id") String pageId,@Query("create_time")String createTime,@Query("time") long time,@Query("device_id") String deviceId,@Query("show_sdv") int showSdv);
 }

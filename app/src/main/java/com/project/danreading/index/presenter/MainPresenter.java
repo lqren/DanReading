@@ -5,8 +5,12 @@ import android.os.SystemClock;
 
 import com.project.danreading.common.model.ApiService;
 import com.project.danreading.common.model.entity.Item;
+import com.project.danreading.common.model.entity.Result;
+import com.project.danreading.common.utils.LogUtil;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -17,7 +21,7 @@ import io.reactivex.schedulers.Schedulers;
 public class MainPresenter implements MainContract.Presenter {
     private MainContract.View mView;
     private ApiService        mApiService;
-
+    @Inject
     public MainPresenter(MainContract.View view, ApiService apiService) {
         mView = view;
         mApiService = apiService;
@@ -25,19 +29,19 @@ public class MainPresenter implements MainContract.Presenter {
 
     @Override
     public void getListByPage(int page, int model, String pageId, String deviceId, String createTime) {
-        mApiService.getList("Android", "1.2.1", "Api", page, model, pageId, createTime, SystemClock.currentThreadTimeMillis(), deviceId, 1)
+        mApiService.getList("Android","api", "1.2.1", "getList", page, model, pageId, createTime, SystemClock.currentThreadTimeMillis(), deviceId, 1)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<List<Item>>() {
+                .subscribe(new Observer<Result.Data<List<Item>>>() {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(@NonNull List<Item> items) {
-                        if (items.size() > 0) {
-                            mView.updateListUi(items);
+                    public void onNext(@NonNull Result.Data<List<Item>> listData) {
+                        if (listData.getDatas().size() > 0) {
+                            mView.updateListUi(listData.getDatas());
                         }
                     }
 
