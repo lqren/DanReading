@@ -99,11 +99,9 @@ public class RxBus {
         synchronized (mSubscriptionMap) {
             Observable<T>       tObservable = mRxBus.toObservable(eventType);
             Object              event           = mSubscriptionMap.get(eventType);
-            if (event != null) {
-                return tObservable.mergeWith(tObservable.create(e -> e.onNext(eventType.cast(event)))).observeOn(AndroidSchedulers.mainThread()).subscribe(onNext);
-            } else {
+
                 return tObservable.observeOn(AndroidSchedulers.mainThread()).subscribe(onNext);
-            }
+
         }
     }
 

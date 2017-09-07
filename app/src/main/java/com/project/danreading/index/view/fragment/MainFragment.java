@@ -15,7 +15,6 @@ import com.bumptech.glide.Glide;
 import com.project.danreading.R;
 import com.project.danreading.common.base.BaseFragment;
 import com.project.danreading.common.model.entity.Item;
-import com.project.danreading.common.utils.LogUtil;
 import com.project.danreading.common.utils.RxBus;
 
 import butterknife.BindView;
@@ -59,7 +58,7 @@ public class MainFragment extends BaseFragment {
     @BindView(R.id.type_container)
     LinearLayout   mTypeContainer;
     Unbinder unbinder;
-    private int mModel;
+    private int  mModel;
     private Item mItem;
 
     @Nullable
@@ -84,18 +83,25 @@ public class MainFragment extends BaseFragment {
             mItem = item1;
             mModel = Integer.parseInt(item1.getModel());
         });
-        switch (mModel) {
-            case 5:
-                mPagerContent.setVisibility(View.GONE);
-                mHomeAdvertiseIv.setVisibility(View.VISIBLE);
-                Glide.with(this.getContext()).load(mItem.getThumbnail()).centerCrop().into(mHomeAdvertiseIv);
-                break;
-            default:
-                LogUtil.d(mModel+"");
-                break;
+        if (mModel == 5) {
+            mPagerContent.setVisibility(View.GONE);
+            mHomeAdvertiseIv.setVisibility(View.VISIBLE);
+            Glide.with(this.getContext()).load(mItem.getThumbnail()).centerCrop().into(mHomeAdvertiseIv);
+
+        } else {
+            mPagerContent.setVisibility(View.VISIBLE);
+            mHomeAdvertiseIv.setVisibility(View.GONE);
+            mItem.getTitle();
+            Glide.with(this.getContext()).load(mItem.getThumbnail()).centerCrop().into(mImageIv);
+            mCommentTv.setText(mItem.getComment());
+            mLikeTv.setText(mItem.getGood());
+            mReadcountTv.setText(mItem.getView());
+            mTitleTv.setText(mItem.getTitle());
+            mContentTv.setText(mItem.getExcerpt());
+            mAuthorTv.setText(mItem.getAuthor());
+//            mTypeTv.setText(mItem.getCategory());
         }
     }
-
 
 
     @Override
