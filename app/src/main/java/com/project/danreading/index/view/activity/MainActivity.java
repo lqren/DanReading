@@ -1,4 +1,4 @@
-package com.project.danreading.index.view;
+package com.project.danreading.index.view.activity;
 
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
@@ -16,7 +16,6 @@ import com.project.danreading.R;
 import com.project.danreading.common.base.BaseActivity;
 import com.project.danreading.common.model.entity.Item;
 import com.project.danreading.common.utils.AppUtil;
-import com.project.danreading.common.utils.LogUtil;
 import com.project.danreading.common.view.VerticalViewPager;
 import com.project.danreading.common.view.adapter.VerticalPagerAdapter;
 import com.project.danreading.di.components.DaggerMainComponent;
@@ -94,6 +93,8 @@ public class MainActivity extends BaseActivity implements MainContract.View {
 
     private void initPage() {
         DaggerMainComponent.builder().appComponent(getAppComponents()).netComponent(getNetComponents()).mainModule(new MainModule(this)).build().inject(this);
+        mPagerAdapter = new VerticalPagerAdapter(getSupportFragmentManager());
+        mVvp.setAdapter(mPagerAdapter);
     }
 
 
@@ -104,6 +105,7 @@ public class MainActivity extends BaseActivity implements MainContract.View {
 
     @Override
     public void updateListUi(List<Item> lists) {
-        LogUtil.d(lists.toString());
+        mPagerAdapter.setDataList(lists);
+        mPagerAdapter.notifyDataSetChanged();
     }
 }

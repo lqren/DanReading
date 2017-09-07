@@ -2,7 +2,7 @@ package com.project.danreading.di.components;
 
 import com.project.danreading.di.modules.SplashModule;
 import com.project.danreading.di.scope.UserScope;
-import com.project.danreading.index.view.SplashActivity;
+import com.project.danreading.index.view.activity.SplashActivity;
 
 import dagger.Component;
 

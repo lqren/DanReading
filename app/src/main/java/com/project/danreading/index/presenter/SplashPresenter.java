@@ -8,7 +8,7 @@ import com.project.danreading.common.model.entity.SplashEntity;
 import com.project.danreading.common.utils.LogUtil;
 import com.project.danreading.common.utils.NetworkUtil;
 import com.project.danreading.common.utils.OkHttpImageDownLoaderUtil;
-import com.project.danreading.index.view.SplashActivity;
+import com.project.danreading.index.view.activity.SplashActivity;
 
 import java.util.List;
 

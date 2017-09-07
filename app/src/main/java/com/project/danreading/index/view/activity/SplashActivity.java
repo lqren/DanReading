@@ -1,4 +1,4 @@
-package com.project.danreading.index.view;
+package com.project.danreading.index.view.activity;
 
 import android.Manifest;
 import android.animation.Animator;

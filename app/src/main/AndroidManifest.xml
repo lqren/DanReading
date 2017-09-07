@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:name=".app.DanReadApplication"
         android:theme="@style/AppTheme">
-        <activity android:name=".index.view.SplashActivity"
+        <activity android:name=".index.view.activity.SplashActivity"
             android:theme="@style/AppTheme.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -22,7 +22,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".index.view.MainActivity"></activity>
+        <activity android:name=".index.view.activity.MainActivity"></activity>
     </application>
 
 </manifest>

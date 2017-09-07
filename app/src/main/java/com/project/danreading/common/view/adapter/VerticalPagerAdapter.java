@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.project.danreading.common.model.entity.Item;
+import com.project.danreading.index.view.fragment.MainFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,8 +23,8 @@ public class VerticalPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-//        return MainFragment.instance(dataList.get(position));
-        return null;
+
+        return MainFragment.instance(dataList.get(position));
     }
 
     @Override
@@ -32,7 +33,6 @@ public class VerticalPagerAdapter extends FragmentStatePagerAdapter {
     }
     public void setDataList(List<Item> data){
         dataList.addAll(data);
-        notifyDataSetChanged();
     }
     public String getLastItemId(){
         if (dataList.size()==0){
