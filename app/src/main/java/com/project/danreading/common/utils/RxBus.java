@@ -4,23 +4,34 @@ package com.project.danreading.common.utils;
 import com.jakewharton.rxrelay2.PublishRelay;
 import com.jakewharton.rxrelay2.Relay;
 
+import org.reactivestreams.Publisher;
+import org.reactivestreams.Subscriber;
+
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import io.reactivex.Flowable;
 import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.ObservableSource;
+import io.reactivex.Observer;
 import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
+import io.reactivex.processors.ReplayProcessor;
 
 public class RxBus {
-    private static volatile RxBus                            mRxBus;
-    private                 Relay<Object>                    mSubject;
-    private                 Map<Class<?>, Object> mSubscriptionMap;
+    private static volatile RxBus mRxBus;
+    private Relay<Object> mSubject;
+    private Map<Class<?>, Object> mSubscriptionMap;
 
     private RxBus() {
         mSubject = PublishRelay.create().toSerialized();
+
         mSubscriptionMap = new ConcurrentHashMap<>();
     }
 
@@ -90,17 +101,20 @@ public class RxBus {
 
     /**
      * 注册黏性事件
+     *
      * @param eventType
-     * @param onNext
      * @param <T>
      * @return
      */
-    public <T> Disposable registerSticky(Class<T> eventType, Consumer<T> onNext) {
+    public <T> Observable registerSticky(Class<T> eventType) {
         synchronized (mSubscriptionMap) {
-            Observable<T>       tObservable = mRxBus.toObservable(eventType);
-            Object              event           = mSubscriptionMap.get(eventType);
+            Observable<T> tFlowable = mSubject.ofType(eventType);
+            Object event = mSubscriptionMap.get(eventType);
+            if (event != null) {
+                return tFlowable.mergeWith(Observable.just(eventType.cast(event)));
 
-                return tObservable.observeOn(AndroidSchedulers.mainThread()).subscribe(onNext);
+            } else
+                return tFlowable;
 
         }
     }
@@ -122,6 +136,7 @@ public class RxBus {
      * @param o
      */
     public void post(Object o) {
+
         mSubject.accept(o);
     }
 

@@ -20,6 +20,7 @@ import com.project.danreading.common.utils.RxBus;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import io.reactivex.functions.Consumer;
 
 public class MainFragment extends BaseFragment {
 
@@ -59,13 +60,24 @@ public class MainFragment extends BaseFragment {
     LinearLayout   mTypeContainer;
     Unbinder unbinder;
     private int  mModel;
-    private Item mItem;
+    private  Item mItem;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = View.inflate(getContext(), R.layout.fragment_main, null);
         unbinder = ButterKnife.bind(this, root);
+    /*    RxBus.getInstance().toObservableSticky(Item.class, item1 -> {
+//            mItem = item1;
+            mModel = Integer.parseInt(item1.getModel());
+        });*/
+        RxBus.getInstance().registerSticky(Item.class).subscribe(new Consumer<Item>() {
+            @Override
+            public void accept(Item item) throws Exception {
+                mItem = item;
+                mModel = Integer.parseInt(item.getModel());
+            }
+        });
         return root;
     }
 
@@ -79,10 +91,6 @@ public class MainFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
 
-        RxBus.getInstance().registerSticky(Item.class, item1 -> {
-            mItem = item1;
-            mModel = Integer.parseInt(item1.getModel());
-        });
         if (mModel == 5) {
             mPagerContent.setVisibility(View.GONE);
             mHomeAdvertiseIv.setVisibility(View.VISIBLE);

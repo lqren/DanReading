@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.project.danreading.common.model.entity.Item;
+import com.project.danreading.common.utils.RxBus;
 import com.project.danreading.index.view.fragment.MainFragment;
 
 import java.util.ArrayList;
