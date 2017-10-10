@@ -1,4 +1,4 @@
-package com.project.danreading.di.modules;
+package com.project.danreading.index.di.modules;
 
 
 import android.support.v4.app.FragmentManager;

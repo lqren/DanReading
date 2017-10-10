@@ -3,12 +3,12 @@ package com.project.danreading.app;
 import android.app.Application;
 import android.content.Context;
 
-import com.project.danreading.di.components.AppComponent;
-import com.project.danreading.di.components.DaggerAppComponent;
-import com.project.danreading.di.components.DaggerNetComponent;
-import com.project.danreading.di.components.NetComponent;
-import com.project.danreading.di.modules.AppMoudle;
-import com.project.danreading.di.modules.NetModule;
+import com.project.danreading.common.di.components.AppComponent;
+import com.project.danreading.common.di.components.DaggerAppComponent;
+import com.project.danreading.common.di.components.DaggerNetComponent;
+import com.project.danreading.common.di.components.NetComponent;
+import com.project.danreading.common.di.modules.AppMoudle;
+import com.project.danreading.common.di.modules.NetModule;
 
 
 public class DanReadApplication extends Application {

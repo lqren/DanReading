@@ -1,4 +1,4 @@
-package com.project.danreading.di.components;
+package com.project.danreading.common.di.components;
 
 import android.content.Context;
 
@@ -6,7 +6,7 @@ import com.project.danreading.common.utils.AppUtil;
 import com.project.danreading.common.utils.FileUtil;
 import com.project.danreading.common.utils.PrefrenceUtil;
 import com.project.danreading.common.utils.ToastUtil;
-import com.project.danreading.di.modules.AppMoudle;
+import com.project.danreading.common.di.modules.AppMoudle;
 
 import dagger.Component;
 

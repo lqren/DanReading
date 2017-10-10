@@ -1,4 +1,4 @@
-package com.project.danreading.di.modules;
+package com.project.danreading.index.di.modules;
 
 
 import com.project.danreading.index.presenter.SplashContract;

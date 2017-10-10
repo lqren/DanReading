@@ -18,8 +18,8 @@ import com.project.danreading.common.model.entity.Item;
 import com.project.danreading.common.utils.AppUtil;
 import com.project.danreading.common.view.VerticalViewPager;
 import com.project.danreading.common.view.adapter.VerticalPagerAdapter;
-import com.project.danreading.di.components.DaggerMainComponent;
-import com.project.danreading.di.modules.MainModule;
+import com.project.danreading.common.di.components.DaggerMainComponent;
+import com.project.danreading.index.di.modules.MainModule;
 import com.project.danreading.index.presenter.MainContract;
 import com.project.danreading.index.presenter.MainPresenter;
 

@@ -8,8 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import com.project.danreading.R;
 import com.project.danreading.app.DanReadApplication;
 import com.project.danreading.common.utils.StatusBarUtil;
-import com.project.danreading.di.components.AppComponent;
-import com.project.danreading.di.components.NetComponent;
+import com.project.danreading.common.di.components.AppComponent;
+import com.project.danreading.common.di.components.NetComponent;
 
 public class BaseActivity extends AppCompatActivity {
 

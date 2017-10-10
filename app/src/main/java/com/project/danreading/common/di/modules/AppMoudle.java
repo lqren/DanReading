@@ -1,4 +1,4 @@
-package com.project.danreading.di.modules;
+package com.project.danreading.common.di.modules;
 
 import android.content.Context;
 

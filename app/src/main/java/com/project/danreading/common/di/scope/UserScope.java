@@ -1,4 +1,4 @@
-package com.project.danreading.di.scope;
+package com.project.danreading.common.di.scope;
 
 import javax.inject.Scope;
 

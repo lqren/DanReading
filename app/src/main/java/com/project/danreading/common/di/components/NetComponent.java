@@ -1,7 +1,7 @@
-package com.project.danreading.di.components;
+package com.project.danreading.common.di.components;
 
 import com.project.danreading.common.model.ApiService;
-import com.project.danreading.di.modules.NetModule;
+import com.project.danreading.common.di.modules.NetModule;
 
 import javax.inject.Singleton;
 
