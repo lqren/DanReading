@@ -1,6 +1,8 @@
 package com.project.danreading.index.view.fragment;
 
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -67,10 +69,7 @@ public class MainFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = View.inflate(getContext(), R.layout.fragment_main, null);
         unbinder = ButterKnife.bind(this, root);
-    /*    RxBus.getInstance().toObservableSticky(Item.class, item1 -> {
-//            mItem = item1;
-            mModel = Integer.parseInt(item1.getModel());
-        });*/
+
         RxBus.getInstance().registerSticky(Item.class).subscribe(new Consumer<Item>() {
             @Override
             public void accept(Item item) throws Exception {
@@ -107,8 +106,36 @@ public class MainFragment extends BaseFragment {
             mTitleTv.setText(mItem.getTitle());
             mContentTv.setText(mItem.getExcerpt());
             mAuthorTv.setText(mItem.getAuthor());
-//            mTypeTv.setText(mItem.getCategory());
+            mTypeTv.setText(mItem.getCategory());
+            switch (mModel) {
+                case 2:
+                    mImageType.setVisibility(View.VISIBLE);
+                    mDownloadStartWhite.setVisibility(View.GONE);
+                    mImageType.setImageResource(R.drawable.library_video_play_symbol);
+                    break;
+                case 3:
+                    mImageType.setVisibility(View.VISIBLE);
+                    mDownloadStartWhite.setVisibility(View.VISIBLE);
+                    mImageType.setImageResource(R.drawable.library_voice_play_symbol);
+                    break;
+                default:
+                    mDownloadStartWhite.setVisibility(View.GONE);
+                    mImageType.setVisibility(View.GONE);
+            }
         }
+        mTypeContainer.setOnClickListener(view -> {
+            Intent intent;
+//            switch (mModel){
+//                case 5:
+                    Uri uri = Uri.parse(mItem.getHtml5());
+                    intent = new Intent(Intent.ACTION_VIEW,uri);
+                    startActivity(intent);
+//                    break;
+
+//                default:
+
+//            }
+        });
     }
 
 
